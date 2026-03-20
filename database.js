@@ -68,3 +68,23 @@ function createDb(filepath) {
             store.designs.push(record);
             persist();
             return record;
+        },
+        updateDesign(id, fields) {
+            var idx = store.designs.findIndex(function (d) { return d.id === Number(id); });
+            if (idx < 0) return null;
+            store.designs[idx] = Object.assign({}, store.designs[idx], fields);
+            persist();
+            return store.designs[idx];
+        },
+        deleteDesign(id) {
+            var idx = store.designs.findIndex(function (d) { return d.id === Number(id); });
+            if (idx < 0) return false;
+            store.designs.splice(idx, 1);
+            persist();
+            return true;
+        },
+        close() {}
+    };
+}
+
+module.exports = { createDb };
