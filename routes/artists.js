@@ -46,3 +46,71 @@ function validateArtist(data, partial) {
 
 function createArtistRoutes(db) {
     var router = express.Router();
+
+    router.get('/artists', function (req, res) {
+        res.status(200).json(db.getAllArtists());
+    });
+
+    router.get('/artists/search', function (req, res) {
+        var q = (req.query.q || '').trim();
+        if (!q) {
+            return res.status(400).json({ error: 'query parameter q is required' });
+        }
+        res.status(200).json(db.searchArtists(q));
+    });
+
+    router.get('/artists/:id', function (req, res) {
+        var row = db.getArtist(req.params.id);
+        if (!row) return res.status(404).json({ error: 'Artist not found' });
+        res.status(200).json(row);
+    });
+
+    router.post('/artists', function (req, res) {
+        var data = req.body;
+        if (!data || typeof data !== 'object') {
+            return res.status(400).json({ error: 'Request body must be JSON' });
+        }
+        var errors = validateArtist(data, false);
+        if (errors.length > 0) return res.status(400).json({ error: errors[0] });
+        var now = new Date().toISOString();
+        var record = db.insertArtist({
+            name: String(data.name).trim(),
+            speciality: String(data.speciality).trim(),
+            bio: data.bio || null,
+            years_exp: Number(data.years_exp),
+            created_at: now,
+            updated_at: now
+        });
+        res.status(201).json(record);
+    });
+
+    router.put('/artists/:id', function (req, res) {
+        var data = req.body;
+        if (!data || typeof data !== 'object') {
+            return res.status(400).json({ error: 'Request body must be JSON' });
+        }
+        var existing = db.getArtist(req.params.id);
+        if (!existing) return res.status(404).json({ error: 'Artist not found' });
+        var errors = validateArtist(data, true);
+        if (errors.length > 0) return res.status(400).json({ error: errors[0] });
+        var updated = db.updateArtist(req.params.id, {
+            name: String(data.name !== undefined ? data.name : existing.name).trim(),
+            speciality: String(data.speciality !== undefined ? data.speciality : existing.speciality).trim(),
+            bio: data.bio !== undefined ? data.bio : existing.bio,
+            years_exp: Number(data.years_exp !== undefined ? data.years_exp : existing.years_exp),
+            updated_at: new Date().toISOString()
+        });
+        res.status(200).json(updated);
+    });
+
+    router.delete('/artists/:id', function (req, res) {
+        var existing = db.getArtist(req.params.id);
+        if (!existing) return res.status(404).json({ error: 'Artist not found' });
+        db.deleteArtist(req.params.id);
+        res.status(200).json({ message: 'Artist deleted successfully' });
+    });
+
+    return router;
+}
+
+module.exports = createArtistRoutes;
