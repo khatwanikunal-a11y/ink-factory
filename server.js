@@ -1,0 +1,10 @@
+const path = require('path');
+const { createDb } = require('./database');
+const { createApp } = require('./app');
+
+const db = createDb(path.join(__dirname, 'tattoo.json'));
+const app = createApp(db);
+
+app.listen(3000, function () {
+    process.stdout.write('Server running on http://127.0.0.1:3000\n');
+});
