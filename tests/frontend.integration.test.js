@@ -48,3 +48,66 @@ test('frontend fetch creates design under artist and loads portfolio', async fun
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: 'Portfolio Artist', speciality: 'Japanese', years_exp: 10 })
+    });
+    var artist = await artistRes.json();
+
+    var designRes = await fetch(baseUrl + '/api/designs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            artist_id: artist.id,
+            title: 'Koi Fish Sleeve',
+            style: 'Japanese',
+            size: 'large',
+            description: 'Full arm koi fish design'
+        })
+    });
+    expect(designRes.status).toBe(201);
+    var design = await designRes.json();
+
+    var portfolioRes = await fetch(baseUrl + '/api/artists/' + artist.id + '/designs');
+    expect(portfolioRes.status).toBe(200);
+    var portfolio = await portfolioRes.json();
+    expect(portfolio.length).toBe(1);
+    expect(portfolio[0].title).toBe('Koi Fish Sleeve');
+
+    var updateRes = await fetch(baseUrl + '/api/designs/' + design.id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: 'Koi Fish Full Sleeve' })
+    });
+    expect(updateRes.status).toBe(200);
+    var updated = await updateRes.json();
+    expect(updated.title).toBe('Koi Fish Full Sleeve');
+
+    var deleteRes = await fetch(baseUrl + '/api/designs/' + design.id, { method: 'DELETE' });
+    expect(deleteRes.status).toBe(200);
+
+    var checkRes = await fetch(baseUrl + '/api/designs/' + design.id);
+    expect(checkRes.status).toBe(404);
+});
+
+test('frontend fetch gets price estimate for a design', async function () {
+    var artistRes = await fetch(baseUrl + '/api/artists', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: 'Pricing Artist', speciality: 'Realism', years_exp: 12 })
+    });
+    var artist = await artistRes.json();
+
+    var designRes = await fetch(baseUrl + '/api/designs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ artist_id: artist.id, title: 'Portrait', style: 'Realism', size: 'large' })
+    });
+    var design = await designRes.json();
+
+    var priceRes = await fetch(baseUrl + '/api/pricing/estimate?design_id=' + design.id + '&currency=EUR');
+    expect(priceRes.status).toBe(200);
+    var price = await priceRes.json();
+    expect(price.design_id).toBe(design.id);
+    expect(price.currency).toBe('EUR');
+    expect(price.price).toBeGreaterThan(0);
+    expect(price.size).toBe('large');
+    expect(price.style).toBe('Realism');
+});
