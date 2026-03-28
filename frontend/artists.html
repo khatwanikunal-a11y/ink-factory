@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ink Factory - Manage Artists</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>The Ink Factory</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="designs.html">Manage Designs</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Add Artist</h2>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="add-name" placeholder="e.g. Sam Lee">
+            </div>
+            <div class="form-group">
+                <label>Speciality</label>
+                <input type="text" id="add-speciality" placeholder="e.g. Traditional, Realism">
+            </div>
+            <div class="form-group">
+                <label>Years of Experience</label>
+                <input type="number" id="add-years-exp" min="0" max="60" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label>Bio</label>
+                <textarea id="add-bio" placeholder="Short bio (optional)"></textarea>
+            </div>
+            <button class="btn" id="btn-add-artist">Add Artist</button>
+            <p class="result-msg" id="add-artist-result"></p>
+        </section>
+
+        <section>
