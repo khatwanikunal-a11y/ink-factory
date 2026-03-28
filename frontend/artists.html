@@ -38,3 +38,48 @@
         </section>
 
         <section>
+            <h2>All Artists</h2>
+            <button class="btn btn-secondary" id="btn-load-artists">Load All Artists</button>
+            <div id="all-artists-container"></div>
+        </section>
+
+        <section>
+            <h2>Search Artists</h2>
+            <div class="search-row">
+                <input type="text" id="search-artist-input" placeholder="Search by name or speciality">
+                <button class="btn" id="btn-search-artists">Search</button>
+            </div>
+            <div id="search-artists-container"></div>
+        </section>
+
+        <section id="update-artist-section">
+            <h2>Update Artist</h2>
+            <p class="update-hint" id="update-artist-info">Select an artist from the table above to update.</p>
+            <div id="update-artist-form" hidden>
+                <input type="hidden" id="update-artist-id">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="update-name">
+                </div>
+                <div class="form-group">
+                    <label>Speciality</label>
+                    <input type="text" id="update-speciality">
+                </div>
+                <div class="form-group">
+                    <label>Years of Experience</label>
+                    <input type="number" id="update-years-exp" min="0" max="60">
+                </div>
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea id="update-bio"></textarea>
+                </div>
+                <button class="btn" id="btn-save-artist">Save Changes</button>
+                <p class="result-msg" id="update-artist-result"></p>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/artists.js"></script>
+</body>
+</html>
