@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ink Factory - Manage Designs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>The Ink Factory</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="artists.html">Manage Artists</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Add Design</h2>
+            <div class="form-group">
+                <label>Artist ID</label>
+                <input type="number" id="add-artist-id" min="1" placeholder="Enter artist ID">
+            </div>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="add-title" placeholder="e.g. Wolf Design">
+            </div>
+            <div class="form-group">
+                <label>Style</label>
+                <input type="text" id="add-style" placeholder="e.g. Realism, Japanese">
+            </div>
+            <div class="form-group">
+                <label>Size</label>
+                <select id="add-size">
+                    <option value="">Select size</option>
+                    <option value="small">small</option>
+                    <option value="medium">medium</option>
+                    <option value="large">large</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="add-description" placeholder="Design description (optional)"></textarea>
+            </div>
+            <button class="btn" id="btn-add-design">Add Design</button>
+            <p class="result-msg" id="add-design-result"></p>
+        </section>
+
+        <section>
+            <h2>All Designs</h2>
+            <button class="btn btn-secondary" id="btn-load-designs">Load All Designs</button>
+            <div id="all-designs-container"></div>
+        </section>
+
+        <section>
+            <h2>View Designs by Artist</h2>
+            <div class="search-row">
+                <input type="number" id="portfolio-artist-id" min="1" placeholder="Enter artist ID">
+                <button class="btn" id="btn-load-portfolio">Load Portfolio</button>
+            </div>
+            <div id="portfolio-container"></div>
+        </section>
+
+        <section>
+            <h2>Search Designs</h2>
