@@ -63,3 +63,70 @@
 
         <section>
             <h2>Search Designs</h2>
+            <div class="search-row">
+                <input type="text" id="search-design-input" placeholder="Search by title or style">
+                <button class="btn" id="btn-search-designs">Search</button>
+            </div>
+            <div id="search-designs-container"></div>
+        </section>
+
+        <section id="update-design-section">
+            <h2>Update Design</h2>
+            <p class="update-hint" id="update-design-info">Select a design from the table above to update.</p>
+            <div id="update-design-form" hidden>
+                <input type="hidden" id="update-design-id">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="update-title">
+                </div>
+                <div class="form-group">
+                    <label>Style</label>
+                    <input type="text" id="update-style">
+                </div>
+                <div class="form-group">
+                    <label>Size</label>
+                    <select id="update-size">
+                        <option value="small">small</option>
+                        <option value="medium">medium</option>
+                        <option value="large">large</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="update-description"></textarea>
+                </div>
+                <button class="btn" id="btn-save-design">Save Changes</button>
+                <p class="result-msg" id="update-design-result"></p>
+            </div>
+        </section>
+        <section>
+            <h2>Color Palette Suggestions</h2>
+            <p>Pick a base color to generate a complementary palette for a tattoo design. Powered by The Color API.</p>
+            <div class="palette-input-row">
+                <input type="color" id="palette-color" value="#c0392b">
+                <button class="btn" id="btn-get-palette">Get Palette</button>
+            </div>
+            <div id="palette-container"></div>
+        </section>
+
+        <section>
+            <h2>Price Estimate</h2>
+            <p>Enter a design ID (and optional currency) to get a price estimate based on size, style complexity, and artist experience. Powered by Open Exchange Rates API.</p>
+            <div class="search-row">
+                <input type="number" id="price-design-id" min="1" placeholder="Design ID">
+                <select id="price-currency">
+                    <option value="EUR">EUR</option>
+                    <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="INR">INR</option>
+                </select>
+                <button class="btn" id="btn-get-price">Get Estimate</button>
+            </div>
+            <div id="price-container"></div>
+        </section>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/designs.js"></script>
+</body>
+</html>
