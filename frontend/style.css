@@ -63,3 +63,63 @@ nav a:hover {
 
 .hero h2 {
     font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 0.95rem;
+    color: #888;
+    max-width: 520px;
+    margin: 0 auto 28px;
+    line-height: 1.7;
+}
+
+.hero-links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 20px 56px;
+}
+
+section {
+    background-color: #181818;
+    border: 1px solid #252525;
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+}
+
+section h2 {
+    font-size: 0.95rem;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #b33;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+}
+
+section p {
+    color: #777;
+    font-size: 0.85rem;
+    margin-bottom: 14px;
+    line-height: 1.6;
+}
+
+.form-group {
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.78rem;
+    color: #888;
