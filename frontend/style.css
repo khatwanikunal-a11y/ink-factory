@@ -123,3 +123,63 @@ section p {
 .form-group label {
     font-size: 0.78rem;
     color: #888;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    max-width: 380px;
+    padding: 8px 10px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #ccc;
+    font-size: 0.88rem;
+    font-family: inherit;
+    transition: border-color 0.15s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #b33;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 64px;
+}
+
+.search-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.search-row input,
+.search-row select {
+    padding: 8px 10px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #ccc;
+    font-size: 0.88rem;
+    font-family: inherit;
+    min-width: 160px;
+    transition: border-color 0.15s;
+}
+
+.search-row input:focus,
+.search-row select:focus {
+    outline: none;
+    border-color: #b33;
+}
+
