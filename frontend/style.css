@@ -238,3 +238,96 @@ section p {
     font-family: inherit;
 }
 
+.btn:hover {
+    background-color: #922;
+}
+
+.btn-secondary {
+    background-color: #252525;
+    color: #bbb;
+    border: 1px solid #3a3a3a;
+}
+
+.btn-secondary:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #611;
+    color: #eee;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #822;
+}
+
+.btn-small {
+    padding: 4px 10px;
+    font-size: 0.76rem;
+}
+
+.result-msg {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #2a9d4e;
+    min-height: 1.2em;
+    font-weight: 600;
+}
+
+.result-msg.error {
+    color: #d44;
+}
+
+.update-hint {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 12px;
+    font-style: italic;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 0.85rem;
+}
+
+th {
+    background-color: #1e1e1e;
+    color: #b33;
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid #333;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.74rem;
+    letter-spacing: 0.6px;
+}
+
+td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #1e1e1e;
+    vertical-align: middle;
+}
+
+tr:hover td {
+    background-color: #1c1c1c;
+}
+
+.actions-cell {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.avatar-img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #333;
+    background-color: #1e1e1e;
+    display: block;
+}
