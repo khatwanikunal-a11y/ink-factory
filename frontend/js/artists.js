@@ -48,3 +48,58 @@ function attachArtistTableEvents(container) {
 }
 
 function loadArtistForUpdate(id) {
+    apiFetch('/artists/' + id).then(function(res) {
+        if (res.status !== 200) {
+            alert(res.data.error);
+            return;
+        }
+        var artist = res.data;
+        document.getElementById('update-artist-id').value = artist.id;
+        document.getElementById('update-name').value = artist.name;
+        document.getElementById('update-speciality').value = artist.speciality;
+        document.getElementById('update-years-exp').value = artist.years_exp;
+        document.getElementById('update-bio').value = artist.bio || '';
+        document.getElementById('update-artist-info').textContent = 'Editing artist ID: ' + artist.id;
+        document.getElementById('update-artist-form').removeAttribute('hidden');
+        document.getElementById('update-artist-result').textContent = '';
+    });
+}
+
+function deleteArtist(id) {
+    if (!confirm('Delete artist ID ' + id + ' and all their designs?')) {
+        return;
+    }
+    apiFetch('/artists/' + id, { method: 'DELETE' }).then(function(res) {
+        if (res.status === 200) {
+            loadAllArtists();
+        } else {
+            alert(res.data.error);
+        }
+    });
+}
+
+function loadAllArtists() {
+    apiFetch('/artists').then(function(res) {
+        buildArtistTable(res.data, 'all-artists-container');
+    });
+}
+
+document.getElementById('btn-add-artist').addEventListener('click', function() {
+    var name = document.getElementById('add-name').value.trim();
+    var speciality = document.getElementById('add-speciality').value.trim();
+    var yearsExp = document.getElementById('add-years-exp').value.trim();
+    var bio = document.getElementById('add-bio').value.trim();
+    var result = document.getElementById('add-artist-result');
+
+    if (!name || !speciality || yearsExp === '') {
+        result.textContent = 'Name, speciality, and years of experience are required.';
+        result.className = 'result-msg error';
+        return;
+    }
+
+    apiFetch('/artists', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, speciality: speciality, years_exp: parseInt(yearsExp), bio: bio || null })
+    }).then(function(res) {
+        if (res.status === 201) {
