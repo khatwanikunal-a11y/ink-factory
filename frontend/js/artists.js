@@ -103,3 +103,61 @@ document.getElementById('btn-add-artist').addEventListener('click', function() {
         body: JSON.stringify({ name: name, speciality: speciality, years_exp: parseInt(yearsExp), bio: bio || null })
     }).then(function(res) {
         if (res.status === 201) {
+            result.textContent = 'Artist added with ID ' + res.data.id + '.';
+            result.className = 'result-msg';
+            document.getElementById('add-name').value = '';
+            document.getElementById('add-speciality').value = '';
+            document.getElementById('add-years-exp').value = '';
+            document.getElementById('add-bio').value = '';
+        } else {
+            result.textContent = 'Error: ' + res.data.error;
+            result.className = 'result-msg error';
+        }
+    });
+});
+
+document.getElementById('btn-load-artists').addEventListener('click', function() {
+    loadAllArtists();
+});
+
+document.getElementById('btn-search-artists').addEventListener('click', function() {
+    var q = document.getElementById('search-artist-input').value.trim();
+    if (!q) {
+        document.getElementById('search-artists-container').innerHTML = '<p>Enter a search term.</p>';
+        return;
+    }
+    apiFetch('/artists/search?q=' + encodeURIComponent(q)).then(function(res) {
+        buildArtistTable(res.data, 'search-artists-container');
+    });
+});
+
+document.getElementById('btn-save-artist').addEventListener('click', function() {
+    var id = document.getElementById('update-artist-id').value;
+    var name = document.getElementById('update-name').value.trim();
+    var speciality = document.getElementById('update-speciality').value.trim();
+    var yearsExp = document.getElementById('update-years-exp').value.trim();
+    var bio = document.getElementById('update-bio').value.trim();
+    var result = document.getElementById('update-artist-result');
+
+    if (!name || !speciality || yearsExp === '') {
+        result.textContent = 'Name, speciality, and years of experience are required.';
+        result.className = 'result-msg error';
+        return;
+    }
+
+    apiFetch('/artists/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, speciality: speciality, years_exp: parseInt(yearsExp), bio: bio || null })
+    }).then(function(res) {
+        if (res.status === 200) {
+            result.textContent = 'Artist updated successfully.';
+            result.className = 'result-msg';
+            document.getElementById('update-artist-form').setAttribute('hidden', '');
+            loadAllArtists();
+        } else {
+            result.textContent = 'Error: ' + res.data.error;
+            result.className = 'result-msg error';
+        }
+    });
+});
