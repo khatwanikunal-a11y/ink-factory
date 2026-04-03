@@ -53,3 +53,58 @@ function loadDesignForUpdate(id) {
             alert(res.data.error);
             return;
         }
+        var design = res.data;
+        document.getElementById('update-design-id').value = design.id;
+        document.getElementById('update-title').value = design.title;
+        document.getElementById('update-style').value = design.style;
+        document.getElementById('update-size').value = design.size;
+        document.getElementById('update-description').value = design.description || '';
+        document.getElementById('update-design-info').textContent = 'Editing design ID: ' + design.id;
+        document.getElementById('update-design-form').removeAttribute('hidden');
+        document.getElementById('update-design-result').textContent = '';
+    });
+}
+
+function deleteDesign(id) {
+    if (!confirm('Delete design ID ' + id + '?')) {
+        return;
+    }
+    apiFetch('/designs/' + id, { method: 'DELETE' }).then(function(res) {
+        if (res.status === 200) {
+            loadAllDesigns();
+        } else {
+            alert(res.data.error);
+        }
+    });
+}
+
+function loadAllDesigns() {
+    apiFetch('/designs').then(function(res) {
+        buildDesignTable(res.data, 'all-designs-container');
+    });
+}
+
+document.getElementById('btn-add-design').addEventListener('click', function() {
+    var artistId = document.getElementById('add-artist-id').value.trim();
+    var title = document.getElementById('add-title').value.trim();
+    var style = document.getElementById('add-style').value.trim();
+    var size = document.getElementById('add-size').value;
+    var description = document.getElementById('add-description').value.trim();
+    var result = document.getElementById('add-design-result');
+
+    if (!artistId || !title || !style || !size) {
+        result.textContent = 'Artist ID, title, style, and size are required.';
+        result.className = 'result-msg error';
+        return;
+    }
+
+    apiFetch('/designs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ artist_id: parseInt(artistId), title: title, style: style, size: size, description: description || null })
+    }).then(function(res) {
+        if (res.status === 201) {
+            result.textContent = 'Design added with ID ' + res.data.id + '.';
+            result.className = 'result-msg';
+            document.getElementById('add-artist-id').value = '';
+            document.getElementById('add-title').value = '';
