@@ -108,3 +108,58 @@ document.getElementById('btn-add-design').addEventListener('click', function() {
             result.className = 'result-msg';
             document.getElementById('add-artist-id').value = '';
             document.getElementById('add-title').value = '';
+            document.getElementById('add-style').value = '';
+            document.getElementById('add-size').value = '';
+            document.getElementById('add-description').value = '';
+        } else {
+            result.textContent = 'Error: ' + res.data.error;
+            result.className = 'result-msg error';
+        }
+    });
+});
+
+document.getElementById('btn-load-designs').addEventListener('click', function() {
+    loadAllDesigns();
+});
+
+document.getElementById('btn-load-portfolio').addEventListener('click', function() {
+    var artistId = document.getElementById('portfolio-artist-id').value.trim();
+    if (!artistId) {
+        document.getElementById('portfolio-container').innerHTML = '<p>Enter an artist ID.</p>';
+        return;
+    }
+    apiFetch('/artists/' + artistId + '/designs').then(function(res) {
+        if (res.status !== 200) {
+            document.getElementById('portfolio-container').innerHTML = '<p>' + res.data.error + '</p>';
+            return;
+        }
+        buildDesignTable(res.data, 'portfolio-container');
+    });
+});
+
+document.getElementById('btn-search-designs').addEventListener('click', function() {
+    var q = document.getElementById('search-design-input').value.trim();
+    if (!q) {
+        document.getElementById('search-designs-container').innerHTML = '<p>Enter a search term.</p>';
+        return;
+    }
+    apiFetch('/designs/search?q=' + encodeURIComponent(q)).then(function(res) {
+        buildDesignTable(res.data, 'search-designs-container');
+    });
+});
+
+document.getElementById('btn-save-design').addEventListener('click', function() {
+    var id = document.getElementById('update-design-id').value;
+    var title = document.getElementById('update-title').value.trim();
+    var style = document.getElementById('update-style').value.trim();
+    var size = document.getElementById('update-size').value;
+    var description = document.getElementById('update-description').value.trim();
+    var result = document.getElementById('update-design-result');
+
+    if (!title || !style || !size) {
+        result.textContent = 'Title, style, and size are required.';
+        result.className = 'result-msg error';
+        return;
+    }
+
+    apiFetch('/designs/' + id, {
