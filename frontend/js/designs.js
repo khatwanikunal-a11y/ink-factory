@@ -163,3 +163,74 @@ document.getElementById('btn-save-design').addEventListener('click', function() 
     }
 
     apiFetch('/designs/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: title, style: style, size: size, description: description || null })
+    }).then(function(res) {
+        if (res.status === 200) {
+            result.textContent = 'Design updated successfully.';
+            result.className = 'result-msg';
+            document.getElementById('update-design-form').setAttribute('hidden', '');
+            loadAllDesigns();
+        } else {
+            result.textContent = 'Error: ' + res.data.error;
+            result.className = 'result-msg error';
+        }
+    });
+});
+
+document.getElementById('btn-get-palette').addEventListener('click', function() {
+    var hex = document.getElementById('palette-color').value.replace('#', '');
+    var container = document.getElementById('palette-container');
+    container.innerHTML = '<p>Loading palette...</p>';
+    fetch('https://www.thecolorapi.com/scheme?hex=' + hex + '&mode=analogic&count=5')
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+            var html = '<div class="palette-row">';
+            data.colors.forEach(function(c) {
+                var hexVal = esc(c.hex.value);
+                var nameVal = esc(c.name.value);
+                html += '<div class="color-swatch" style="background-color:' + hexVal + '">' +
+                    hexVal + '<br>' + nameVal +
+                    '</div>';
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        })
+        .catch(function() {
+            container.innerHTML = '<p>Could not load palette. Check your connection.</p>';
+        });
+});
+
+document.getElementById('btn-get-price').addEventListener('click', function() {
+    var designId = document.getElementById('price-design-id').value.trim();
+    var currency = document.getElementById('price-currency').value;
+    var container = document.getElementById('price-container');
+
+    if (!designId) {
+        container.innerHTML = '<p>Enter a design ID.</p>';
+        return;
+    }
+
+    container.innerHTML = '<p>Calculating...</p>';
+    apiFetch('/pricing/estimate?design_id=' + encodeURIComponent(designId) + '&currency=' + encodeURIComponent(currency))
+        .then(function(res) {
+            if (res.status !== 200) {
+                container.innerHTML = '<p>' + esc(res.data.error) + '</p>';
+                return;
+            }
+            var d = res.data;
+            var html = '<table border="1"><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>';
+            html += '<tr><td>Design ID</td><td>' + esc(String(d.design_id)) + '</td></tr>';
+            html += '<tr><td>Size</td><td>' + esc(d.size) + '</td></tr>';
+            html += '<tr><td>Style</td><td>' + esc(d.style) + '</td></tr>';
+            html += '<tr><td>Artist Experience</td><td>' + esc(String(d.artist_years_exp)) + ' years</td></tr>';
+            if (d.price_eur !== undefined) {
+                html += '<tr><td>Base Price (EUR)</td><td>' + esc(String(d.price_eur)) + '</td></tr>';
+                html += '<tr><td>Exchange Rate</td><td>' + esc(String(d.exchange_rate)) + '</td></tr>';
+            }
+            html += '<tr><td>Estimated Price (' + esc(d.currency) + ')</td><td><strong>' + esc(String(d.price)) + '</strong></td></tr>';
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        });
+});
