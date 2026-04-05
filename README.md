@@ -48,3 +48,81 @@ Sorting:
 - All lists returned sorted by ID
 
 Additional Features:
+- Price estimator based on design size, style complexity, and artist experience
+- Currency conversion using live exchange rates
+- Color palette generator for tattoo designs
+- Auto-generated avatar images for artists
+
+
+API Endpoints
+
+Artists:
+- GET    /api/artists              - List all artists
+- GET    /api/artists/:id          - Get single artist
+- GET    /api/artists/search?q=    - Search artists
+- POST   /api/artists              - Create artist
+- PUT    /api/artists/:id          - Update artist
+- DELETE /api/artists/:id          - Delete artist
+
+Designs:
+- GET    /api/designs              - List all designs
+- GET    /api/designs/:id          - Get single design
+- GET    /api/designs/search?q=    - Search designs
+- GET    /api/artists/:id/designs  - Get designs by artist
+- POST   /api/designs              - Create design
+- PUT    /api/designs/:id          - Update design
+- DELETE /api/designs/:id          - Delete design
+
+Pricing:
+- GET    /api/pricing/estimate?design_id=1&currency=EUR - Get price estimate
+
+
+External APIs Used
+
+1. DiceBear Avatars API (https://www.dicebear.com) - Generates avatar images from artist initials. MIT License.
+2. The Color API (https://www.thecolorapi.com) - Returns complementary color palettes for tattoo design planning. Free, no key required.
+3. Open Exchange Rates API (https://open.er-api.com) - Provides live EUR exchange rates for the pricing estimator. Free tier, no key required.
+
+
+Testing Summary
+
+artists.test.js (10 tests):
+- Create artist with valid data
+- Create artist with missing name
+- Create artist with negative years_exp
+- Get all artists
+- Get single artist by ID
+- Get artist by non-existent ID
+- Update artist
+- Update non-existent artist
+- Delete artist
+- Delete non-existent artist
+
+designs.test.js (8 tests):
+- Create design with valid artist
+- Create design with non-existent artist
+- Create design with invalid size
+- Get all designs
+- Get designs by artist ID
+- Update design
+- Delete design
+- Search designs by title
+
+integration.test.js (1 test):
+- Full workflow: create artist, create design, read portfolio, update design, delete artist, verify cascade delete
+
+frontend.integration.test.js (3 tests):
+- Real HTTP server with native fetch: create and read artist
+- Create design, load portfolio, update, delete, verify deletion
+- Price estimate request and response validation
+
+
+Attributions
+
+- Express (https://expressjs.com) - MIT License - Web framework for Node.js
+- Jest (https://jestjs.io) - MIT License - Testing framework
+- Supertest (https://github.com/ladjs/supertest) - MIT License - HTTP assertion library
+- CORS middleware (https://github.com/expressjs/cors) - MIT License - Cross-origin resource sharing
+- DiceBear (https://www.dicebear.com) - MIT License - Avatar generation
+- The Color API (https://www.thecolorapi.com) - Free public API - Color scheme generation
+- Open Exchange Rates (https://open.er-api.com) - Free public API - Currency exchange rates
