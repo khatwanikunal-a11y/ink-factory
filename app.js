@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+
 const createArtistRoutes = require('./routes/artists');
 const createDesignRoutes = require('./routes/designs');
 const createPricingRoutes = require('./routes/pricing');

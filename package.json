@@ -1,6 +1,6 @@
 {
   "name": "kunal-tatoo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The Ink Factory - Tattoo Artist and Portfolio Management System",
   "main": "server.js",
   "scripts": {
