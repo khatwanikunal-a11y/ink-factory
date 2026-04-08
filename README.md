@@ -1,17 +1,3 @@
-Student Name and Number:
-Programme:
-Lecturer Name: Paul Laird
-Module/Subject Title: Programming for Information Systems (B9IS123)
-Assignment Title: The Ink Factory - Tattoo Artist and Portfolio Management System
-
-By submitting this assignment, I am confirming that:
-- This assignment is all my own work
-- Any sources used have been referenced
-- I have followed the Generative AI instructions/scale set out in the Assignment Brief
-- I have read the College rules regarding academic integrity in the QAH Part B Section 3, and the Generative AI Guidelines, and understand that penalties will be applied accordingly if work is found not to be my own
-- I understand that all work submitted may be code-matched to show any similarities with other work
-
-
 About
 
 This is a management system built for The Ink Factory, a tattoo studio. It allows staff to manage tattoo artists and their design portfolios through a web interface. The system supports full CRUD operations, search, validation, and pricing estimates.
