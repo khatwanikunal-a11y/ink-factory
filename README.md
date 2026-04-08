@@ -1,10 +1,46 @@
+Student Name and Number:
+Programme:
+Lecturer Name: Paul Laird
+Module/Subject Title: Programming for Information Systems (B9IS123)
+Assignment Title: The Ink Factory - Tattoo Artist and Portfolio Management System
+
+By submitting this assignment, I am confirming that:
+- This assignment is all my own work
+- Any sources used have been referenced
+- I have followed the Generative AI instructions/scale set out in the Assignment Brief
+- I have read the College rules regarding academic integrity in the QAH Part B Section 3, and the Generative AI Guidelines, and understand that penalties will be applied accordingly if work is found not to be my own
+- I understand that all work submitted may be code-matched to show any similarities with other work
+
 
 About
 
 This is a management system built for The Ink Factory, a tattoo studio. It allows staff to manage tattoo artists and their design portfolios through a web interface. The system supports full CRUD operations, search, validation, and pricing estimates.
 
 
-How to Run
+Live Deployment (AWS Elastic Beanstalk)
+
+The application is deployed on AWS Elastic Beanstalk in the eu-north-1 (Stockholm) region.
+
+- Live URL:      http://kunal-tattoo-env.eba-y2wthbqn.eu-north-1.elasticbeanstalk.com
+- Home:          http://kunal-tattoo-env.eba-y2wthbqn.eu-north-1.elasticbeanstalk.com/index.html
+- Manage Artists: http://kunal-tattoo-env.eba-y2wthbqn.eu-north-1.elasticbeanstalk.com/artists.html
+- Manage Designs: http://kunal-tattoo-env.eba-y2wthbqn.eu-north-1.elasticbeanstalk.com/designs.html
+
+Deployment Details:
+- Platform:      Node.js 20 running on 64bit Amazon Linux 2023
+- Environment:   kunal-tattoo-env
+- Application:   kunal-tattoo
+- Region:        eu-north-1 (Stockholm)
+- Account ID:    081338829352
+- IAM User:      AdminUser
+
+To Redeploy:
+1. Install EB CLI: pip install awsebcli
+2. Configure AWS credentials: aws configure
+3. Deploy: eb deploy kunal-tattoo-env --region eu-north-1
+
+
+How to Run Locally
 
 1. Install dependencies: npm install
 2. Start the server: npm start
